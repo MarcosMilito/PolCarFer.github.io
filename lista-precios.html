@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Precios - POLCARFER SRL</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Librería para leer archivos Excel (SheetJS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body id="page-lista-precios"> <!-- ID para que el JS sepa qué página es -->
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">POLCARFER SRL</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
+                    <li><a href="pedidos.html">Pedidos</a></li>
+                    <li><a href="lista-precios.html" class="active">Lista de Precios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <h1>Lista de Precios General</h1>
+        
+        <!-- SECCIÓN PARA PROPIETARIOS -->
+        <div class="admin-section">
+            <h2>Actualizar Lista (Solo Propietarios)</h2>
+            <p>Selecciona un archivo Excel (.xlsx) para cargar y visualizar los productos en la tabla de abajo. Los cambios solo serán visibles en tu sesión actual.</p>
+            <input type="file" id="excel-file" accept=".xlsx, .xls">
+            <button id="upload-btn" class="btn">Cargar Archivo</button>
+        </div>
+
+        <!-- La lista de precios se mostrará aquí -->
+        <div class="table-container">
+            <table id="price-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas se cargarán aquí con JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 POLCARFER SRL - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

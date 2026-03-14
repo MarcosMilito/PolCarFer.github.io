@@ -31,10 +31,9 @@
         <h1>Catálogo de Productos</h1>
         <p>Selecciona los productos que deseas y agrégalos a tu carrito.</p>
         
-        <!-- Los productos se cargarán aquí con JavaScript -->
         <div id="product-grid" class="product-grid"></div>
     </main>
-
+    
     <!-- Modal del Carrito (inicialmente oculto) -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
@@ -46,8 +45,13 @@
             </div>
             <div id="cart-summary">
                 <h3>Total: <span id="cart-total">$0.00</span></h3>
-                <!-- COMENTARIO: Este botón te llevará a un link de pago de Mercado Pago. Debes generar uno desde tu cuenta de MP. -->
+                
+                <!-- COMENTARIO: REEMPLAZA ESTA URL por tu link de pago de Mercado Pago -->
                 <a href="https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCE_ID" target="_blank" class="btn btn-primary" id="checkout-btn">Finalizar Compra y Pagar</a>
+                
+                <!-- BOTÓN NUEVO: Para vaciar el carrito -->
+                <button id="empty-cart-btn" class="btn btn-secondary">Vaciar Carrito</button>
+                
                 <small>Serás redirigido a Mercado Pago para completar la compra de forma segura.</small>
             </div>
         </div>
@@ -55,7 +59,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 POLCARFER SRL - Todos los derechos reservados.</p>
+            <p>&copy; 2026 POLCARFER SRL - Todos los derechos reservados.</p>
         </div>
     </footer>
 

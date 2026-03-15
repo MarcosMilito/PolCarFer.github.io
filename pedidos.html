@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body id="page-pedidos">
-
     <header>
         <div class="container">
             <a href="index.html" class="logo">POLCARFER SRL</a>
@@ -15,7 +14,8 @@
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
-                    <li><a href="pedidos.html" class="active">Pedidos / Lista de Precios</a></li>
+                    <li><a href="pedidos.html" class="active">Pedidos</a></li>
+                    <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
@@ -23,26 +23,23 @@
                 <img src="https://img.icons8.com/ios-filled/50/FFC107/shopping-cart.png" alt="Carrito" id="cart-icon"/>
                 <span id="cart-count">0</span>
             </div>
-            <button class="hamburger-menu">
-                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            </button>
+            <button class="hamburger-menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
             <nav class="mobile-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
-                    <li><a href="pedidos.html">Pedidos / Lista de Precios</a></li>
+                    <li><a href="pedidos.html">Pedidos</a></li>
+                    <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
     <main class="container page-content">
         <h1>Catálogo de Productos</h1>
         <p>Selecciona los productos que deseas y agrégalos a tu carrito.</p>
         <div id="product-grid" class="product-grid"></div>
     </main>
-    
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
@@ -55,7 +52,6 @@
             </div>
         </div>
     </div>
-
     <div id="checkout-form-modal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="close-checkout-form-modal">&times;</span>
@@ -63,21 +59,15 @@
             <form id="customer-data-form">
                 <div class="form-group"><label for="nombre">Nombre</label><input type="text" id="nombre" required></div>
                 <div class="form-group"><label for="apellido">Apellido</label><input type="text" id="apellido" required></div>
-                <div class="form-group"><label for="telefono">Número de Teléfono</label><input type="tel" id="telefono" placeholder="Ej: 1122334455" required></div>
-                <div class="form-group"><label for="email">Correo Electrónico</label><input type="email" id="email" required></div>
+                <div class="form-group"><label for="telefono">Teléfono</label><input type="tel" id="telefono" required></div>
+                <div class="form-group"><label for="email">Email</label><input type="email" id="email" required></div>
                 <div class="form-group"><label for="direccion">Dirección</label><input type="text" id="direccion" required></div>
                 <div class="form-group"><label for="localidad">Localidad</label><input type="text" id="localidad" required></div>
-                <button type="submit" class="btn btn-primary whatsapp-btn" id="submit-order-btn">Confirmar y Enviar Pedido por WhatsApp</button>
+                <button type="submit" class="btn btn-primary whatsapp-btn">Enviar Pedido por WhatsApp</button>
             </form>
         </div>
     </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 POLCARFER SRL - Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+    <footer><div class="container"><p>&copy; 2026 POLCARFER SRL</p></div></footer>
     <script src="JS/productos.js"></script>
     <script src="JS/script.js"></script>
 </body>

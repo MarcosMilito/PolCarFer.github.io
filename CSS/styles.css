@@ -60,7 +60,7 @@ header .container {
     text-decoration: none;
 }
 
-nav ul {
+.desktop-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -68,14 +68,14 @@ nav ul {
     gap: 20px;
 }
 
-nav a {
+.desktop-nav a {
     color: var(--color-texto-principal);
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 4px;
     transition: background-color 0.3s;
 }
-nav a:hover, nav a.active {
+.desktop-nav a:hover, .desktop-nav a.active {
     background-color: var(--color-amarillo-principal);
     color: var(--color-negro-fondo);
     text-decoration: none;
@@ -295,7 +295,7 @@ footer {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
-/* --- NUEVOS ESTILOS PARA EL CARRITO --- */
+/* --- ESTILOS DEL CARRITO MEJORADO --- */
 .btn-secondary {
     background-color: transparent;
     color: var(--color-texto-secundario);
@@ -309,7 +309,6 @@ footer {
     color: var(--color-texto-principal);
     text-decoration: none;
 }
-
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -337,4 +336,65 @@ footer {
     font-weight: bold;
     cursor: pointer;
     line-height: 24px;
+}
+
+/* --- ESTILOS PARA MENÚ MÓVIL Y RESPONSIVE --- */
+.hamburger-menu, .mobile-nav {
+    display: none;
+}
+@media (max-width: 768px) {
+    .desktop-nav, .cart-icon-container {
+        display: none; /* Oculta también el ícono de carrito en móvil si quieres, o déjalo */
+    }
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 2001;
+    }
+    .hamburger-menu .bar {
+        width: 30px;
+        height: 3px;
+        background-color: var(--color-amarillo-principal);
+        border-radius: 10px;
+        transition: all 0.3s linear;
+    }
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--color-negro-caja);
+        transition: left 0.3s ease-in-out;
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+    }
+    .mobile-nav.active {
+        left: 0;
+    }
+    .mobile-nav ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        list-style: none; /* Asegura que no haya puntos */
+        padding: 0; /* Asegura que no haya padding */
+    }
+    .mobile-nav ul a {
+        font-size: 1.5rem;
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
 }

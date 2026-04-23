@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Precios - POLCARFER SRL</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body id="page-catalogo-precios">
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">POLCARFER SRL</a>
+
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
+                    <li><a href="pedidos.html">Pedidos</a></li>
+                    <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html" class="active">Lista de Precios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <button class="hamburger-menu" aria-label="Abrir menú">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <nav class="mobile-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
+                    <li><a href="pedidos.html">Pedidos</a></li>
+                    <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html">Lista de Precios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <section class="page-header">
+            <h1>Lista de precios completa</h1>
+            <p>Consultá todos los productos disponibles junto con su precio de lista, descuento, precio S/IVA y precio C/IVA.</p>
+        </section>
+
+        <section class="catalog-tools">
+            <input type="text" id="price-list-search" placeholder="Buscar por código, nombre o presentación...">
+
+            <select id="price-list-rubro-filter">
+                <option value="">Todos los rubros</option>
+            </select>
+
+            <select id="price-list-sort">
+                <option value="default">Ordenar por...</option>
+                <option value="name-asc">Nombre (A-Z)</option>
+                <option value="name-desc">Nombre (Z-A)</option>
+                <option value="price-asc">Precio S/IVA (menor a mayor)</option>
+                <option value="price-desc">Precio S/IVA (mayor a menor)</option>
+            </select>
+
+            <div class="catalog-summary">
+                <span id="price-list-total">0 productos</span>
+            </div>
+        </section>
+
+        <div class="table-wrapper">
+            <table id="price-list-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Presentación</th>
+                        <th>Precio de lista</th>
+                        <th>Descuento</th>
+                        <th>Precio S/IVA</th>
+                        <th>Precio C/IVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Se completa por JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 POLCARFER SRL - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

@@ -718,11 +718,11 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         }
 
         function downloadPriceListExcel() {
-
             if (typeof XLSX === 'undefined') {
-                alert('No se cargó la librería para generar Excel. Revisá que esté agregado el script de XLSX en catalogo-precios.html.');
+                alert('No se cargó la librería para generar Excel.');
                 return;
             }
+
             const password = prompt('Ingresá la contraseña para descargar la lista de precios:');
 
             if (password === null) return;
@@ -752,57 +752,53 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
 
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
 
-            // === CONFIGURAR ANCHO DE COLUMNAS ===
             worksheet['!cols'] = [
-                { wch: 16 }, // Código
-                { wch: 50 }, // Producto
-                { wch: 28 }, // Presentación
-                { wch: 18 }, // Precio lista
-                { wch: 16 }, // Descuento
-                { wch: 18 }, // S/IVA
-                { wch: 18 }  // C/IVA
+                { wch: 16 },
+                { wch: 55 },
+                { wch: 28 },
+                { wch: 18 },
+                { wch: 16 },
+                { wch: 18 },
+                { wch: 18 }
             ];
 
-            // === OBTENER RANGO ===
             const range = XLSX.utils.decode_range(worksheet['!ref']);
 
-            // === ESTILO ENCABEZADOS ===
-            for (let C = range.s.c; C <= range.e.c; ++C) {
+            for (let C = range.s.c; C <= range.e.c; C++) {
                 const cellAddress = XLSX.utils.encode_cell({ r: 0, c: C });
-                if (!worksheet[cellAddress]) continue;
 
-                worksheet[cellAddress].s = {
-                    font: { bold: true, color: { rgb: "000000" } },
-                    fill: { fgColor: { rgb: "FFC107" } }, // amarillo
-                    alignment: { horizontal: "center", vertical: "center" },
-                    border: {
-                        top: { style: "thin" },
-                        bottom: { style: "thin" },
-                        left: { style: "thin" },
-                        right: { style: "thin" }
-                    }
-                };
+                if (worksheet[cellAddress]) {
+                    worksheet[cellAddress].s = {
+                        font: { bold: true, color: { rgb: '000000' } },
+                        fill: { fgColor: { rgb: 'FFC107' } },
+                        alignment: { horizontal: 'center', vertical: 'center' },
+                        border: {
+                            top: { style: 'thin', color: { rgb: '000000' } },
+                            bottom: { style: 'thin', color: { rgb: '000000' } },
+                            left: { style: 'thin', color: { rgb: '000000' } },
+                            right: { style: 'thin', color: { rgb: '000000' } }
+                        }
+                    };
+                }
             }
 
-            // === ESTILO FILAS ===
-            for (let R = 1; R <= range.e.r; ++R) {
-                for (let C = range.s.c; C <= range.e.c; ++C) {
+            for (let R = 1; R <= range.e.r; R++) {
+                for (let C = range.s.c; C <= range.e.c; C++) {
                     const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
                     const cell = worksheet[cellAddress];
+
                     if (!cell) continue;
 
-                    // alineación
                     cell.s = {
-                        alignment: { horizontal: "center", vertical: "center" },
+                        alignment: { horizontal: C === 1 ? 'left' : 'center', vertical: 'center' },
                         border: {
-                            top: { style: "thin" },
-                            bottom: { style: "thin" },
-                            left: { style: "thin" },
-                            right: { style: "thin" }
+                            top: { style: 'thin', color: { rgb: 'CCCCCC' } },
+                            bottom: { style: 'thin', color: { rgb: 'CCCCCC' } },
+                            left: { style: 'thin', color: { rgb: 'CCCCCC' } },
+                            right: { style: 'thin', color: { rgb: 'CCCCCC' } }
                         }
                     };
 
-                    // formato moneda SOLO columnas precios
                     if ([3, 5, 6].includes(C) && typeof cell.v === 'number') {
                         cell.z = '"$"#,##0.00';
                     }

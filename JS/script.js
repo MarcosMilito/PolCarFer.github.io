@@ -809,28 +809,6 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
                 }
             }
 
-            // Aplicar formato moneda a columnas de precios
-            const range = XLSX.utils.decode_range(worksheet['!ref']);
-
-            for (let R = range.s.r + 1; R <= range.e.r; ++R) {
-                ['D', 'F', 'G'].forEach(col => { // columnas: Precio lista, S/IVA, C/IVA
-                    const cell = worksheet[col + (R + 1)];
-                    if (cell && typeof cell.v === 'number') {
-                        cell.z = '"$"#,##0.00';
-                    }
-                });
-            }
-
-            worksheet['!cols'] = [
-                { wch: 16 },
-                { wch: 55 },
-                { wch: 28 },
-                { wch: 18 },
-                { wch: 16 },
-                { wch: 18 },
-                { wch: 18 }
-            ];
-
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Precios');
 

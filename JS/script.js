@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const CODIGO_ACCESO_SOCIO = 'a1b2c3d4e5f6';
-    const PRODUCTOS_STORAGE_KEY = 'polcarfer_productos';
     const CART_STORAGE_KEY = 'polcarfer_cart';
     const pageId = document.body.id;
+    const PRODUCTOS_JSON_URL = 'data/productos.json';
 
     const ALIAS_POLCARFER = 'POLCARFER.SRL';
 
@@ -55,18 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return String(phone || '').replace(/\D/g, '');
     }
 
-    function getProducts() {
+    async function getProducts() {
         try {
-            const productosGuardados = localStorage.getItem(PRODUCTOS_STORAGE_KEY);
-            return productosGuardados ? JSON.parse(productosGuardados) : [];
+            const response = await fetch(PRODUCTOS_JSON_URL, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`No se pudo cargar ${PRODUCTOS_JSON_URL}`);
+            }
+            const productos = await response.json();
+            return Array.isArray(productos) ? productos : [];
         } catch (error) {
-            console.error('Error al leer productos:', error);
+            console.error('Error al leer productos desde JSON:', error);
             return [];
         }
-    }
-
-    function saveProducts(products) {
-        localStorage.setItem(PRODUCTOS_STORAGE_KEY, JSON.stringify(products));
     }
 
     function getCart() {
@@ -81,6 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function saveCart(cart) {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    }
+
+    function downloadJSONFile(data, filename = 'productos.json') {
+        const jsonString = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
     }
 
     function detectRubro(nombre, presentacion = '', seccion = '') {
@@ -100,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rubro = 'Electricidad';
         } else if (/PINTURA|PINCEL|RODILLO|ESPATULA|LIJA|THINNER|SELLADOR/.test(fullText)) {
             rubro = 'Pinturería';
-        } else if (/MANGUERA|GRIFERIA|CANILLA|TEFLON|SIFON|VALVULA|UNION/.test(fullText)) {
+        } else if (/MANGUERA|GRIFERIA|CANILLA|TEFLON|SIFON|VALVULA|UNION|PLOMERIA|FONTANERIA|CAÑO|CANO|PVC/.test(fullText)) {
             rubro = 'Sanitaria';
         } else if (/ADHESIVO|SILICONA|PEGAMENTO|SELLADOR|MEMBRANA/.test(fullText)) {
             rubro = 'Adhesivos y selladores';
@@ -318,7 +333,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (pageId === 'page-pedidos') {
+    async function initPedidosPage() {
+        if (pageId !== 'page-pedidos') return;
+
         const productGrid = document.getElementById('product-grid');
         const searchInput = document.getElementById('search-input');
         const productsTotal = document.getElementById('products-total');
@@ -338,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeCheckoutFormModalBtn = document.getElementById('close-checkout-form-modal');
         const customerForm = document.getElementById('customer-data-form');
 
-        let productos = getProducts().map(producto => ({
+        let productos = (await getProducts()).map(producto => ({
             ...producto,
             rubro: producto.rubro || detectRubro(producto.nombre, producto.presentacion, producto.seccion)
         }));
@@ -672,14 +689,16 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         });
     }
 
-    if (pageId === 'page-catalogo-precios') {
+    async function initCatalogoPreciosPage() {
+        if (pageId !== 'page-catalogo-precios') return;
+
         const searchInput = document.getElementById('price-list-search');
         const rubroFilter = document.getElementById('price-list-rubro-filter');
         const sortSelect = document.getElementById('price-list-sort');
         const totalLabel = document.getElementById('price-list-total');
         const tableBody = document.querySelector('#price-list-table tbody');
 
-        let productos = getProducts().map(producto => ({
+        let productos = (await getProducts()).map(producto => ({
             ...producto,
             rubro: producto.rubro || detectRubro(producto.nombre, producto.presentacion, producto.seccion)
         }));
@@ -774,7 +793,9 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         sortSelect.addEventListener('change', applyFiltersAndSort);
     }
 
-    if (pageId === 'page-lista-precios') {
+    function initListaPreciosSociosPage() {
+        if (pageId !== 'page-lista-precios') return;
+
         const loginSection = document.getElementById('login-section');
         const adminPanel = document.getElementById('admin-panel');
         const loginForm = document.getElementById('login-form');
@@ -790,7 +811,7 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
             if (!productos || !productos.length) {
                 adminTableBody.innerHTML = `
                     <tr>
-                        <td colspan="6" style="text-align:center;">No hay productos cargados.</td>
+                        <td colspan="7" style="text-align:center;">No hay productos cargados.</td>
                     </tr>
                 `;
                 return;
@@ -802,21 +823,22 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
                     <td>${producto.codigo}</td>
                     <td>${producto.nombre}</td>
                     <td>${producto.presentacion || '-'}</td>
-                    <td>${formatPrice(producto.precioSinIva)}</td>
-                    <td>${formatPrice(producto.precioConIva)}</td>
+                    <td>${formatPrice(producto.precioLista || 0)}</td>
                     <td>${producto.tieneDescuento ? `${Math.round(producto.descuento * 100)}%` : 'Sin descuento'}</td>
+                    <td>${formatPrice(producto.precioSinIva || 0)}</td>
+                    <td>${formatPrice(producto.precioConIva || 0)}</td>
                 `;
                 adminTableBody.appendChild(row);
             });
         }
 
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             if (codigoInput.value === CODIGO_ACCESO_SOCIO) {
                 loginSection.style.display = 'none';
                 adminPanel.style.display = 'block';
-                const currentProducts = getProducts();
+                const currentProducts = await getProducts();
                 showAdminPreview(currentProducts);
             } else {
                 alert('Código de acceso incorrecto.');
@@ -824,11 +846,7 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         });
 
         clearStorageButton.addEventListener('click', () => {
-            if (confirm('¿Querés borrar todo el catálogo actual?')) {
-                localStorage.removeItem(PRODUCTOS_STORAGE_KEY);
-                alert('Catálogo borrado correctamente.');
-                showAdminPreview([]);
-            }
+            alert('Para borrar el catálogo compartido, vaciá manualmente el archivo data/productos.json y volvé a subirlo a GitHub.');
         });
 
         uploadButton.addEventListener('click', () => {
@@ -877,10 +895,17 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
                         return;
                     }
 
-                    saveProducts(productosFinales);
                     showAdminPreview(productosFinales);
+                    downloadJSONFile(productosFinales, 'productos.json');
 
-                    alert(`¡Catálogo actualizado con éxito!\nSe cargaron ${productosFinales.length} productos.`);
+                    alert(
+                        '¡JSON generado con éxito!\n\n' +
+                        'Ahora hacé esto:\n' +
+                        '1. Reemplazá el archivo data/productos.json de tu proyecto por el que se descargó.\n' +
+                        '2. Hacé commit.\n' +
+                        '3. Hacé push a GitHub.\n\n' +
+                        'Después de eso, todos los usuarios verán el catálogo actualizado.'
+                    );
                 } catch (error) {
                     console.error('Error al procesar el archivo Excel:', error);
                     alert('Hubo un error al procesar el archivo. Revisá que estén las hojas requeridas y el formato de columnas.');
@@ -890,4 +915,8 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
             reader.readAsArrayBuffer(fileInput.files[0]);
         });
     }
+
+    initPedidosPage();
+    initCatalogoPreciosPage();
+    initListaPreciosSociosPage();
 });

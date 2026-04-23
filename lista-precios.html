@@ -58,18 +58,22 @@
         </div>
 
         <div id="admin-panel" class="admin-section" style="display: none;">
-            <h1>Actualizar catálogo</h1>
-            <p>Subí el archivo Excel y el sistema tomará únicamente la hoja <strong>“LISTA DE PRECIOS”</strong>.</p>
+            <h1>Actualizar catálogo compartido</h1>
+            <p>
+                Subí el Excel y el sistema va a generar un archivo <strong>productos.json</strong>.
+                Después tenés que reemplazar el archivo dentro de <strong>/data/productos.json</strong>
+                y subirlo a GitHub para que todos los usuarios vean el catálogo actualizado.
+            </p>
 
             <div class="admin-actions">
                 <input type="file" id="excel-file" accept=".xlsx, .xls">
-                <button id="upload-btn" class="btn">Cargar catálogo desde Excel</button>
-                <button id="clear-storage-btn" class="btn btn-secondary">Borrar catálogo actual</button>
+                <button id="upload-btn" class="btn">Generar productos.json desde Excel</button>
+                <button id="clear-storage-btn" class="btn btn-secondary" type="button">Info para borrar catálogo</button>
             </div>
 
             <hr class="separator">
 
-            <h2>Vista previa del catálogo actual</h2>
+            <h2>Vista previa del catálogo generado</h2>
             <div class="table-wrapper">
                 <table id="admin-product-table">
                     <thead>
@@ -77,13 +81,14 @@
                             <th>Código</th>
                             <th>Producto</th>
                             <th>Presentación</th>
-                            <th>Precio E</th>
-                            <th>Precio F</th>
-                            <th>Precio aplicado</th>
+                            <th>Precio Lista</th>
+                            <th>Descuento</th>
+                            <th>Precio S/IVA</th>
+                            <th>Precio C/IVA</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Se completa con JavaScript -->
+                        <!-- Se carga por JS -->
                     </tbody>
                 </table>
             </div>

@@ -718,6 +718,11 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         }
 
         function downloadPriceListExcel() {
+
+            if (typeof XLSX === 'undefined') {
+                alert('No se cargó la librería para generar Excel. Revisá que esté agregado el script de XLSX en catalogo-precios.html.');
+                return;
+            }
             const password = prompt('Ingresá la contraseña para descargar la lista de precios:');
 
             if (password === null) return;
@@ -838,7 +843,11 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         searchInput.addEventListener('input', applyFiltersAndSort);
         rubroFilter.addEventListener('change', applyFiltersAndSort);
         sortSelect.addEventListener('change', applyFiltersAndSort);
-        downloadPriceListBtn.addEventListener('click', downloadPriceListExcel);
+        if (downloadPriceListBtn) {
+            downloadPriceListBtn.addEventListener('click', downloadPriceListExcel);
+        } else {
+            console.error('No se encontró el botón download-price-list-btn');
+        }
     }
 
     function initListaPreciosSociosPage() {

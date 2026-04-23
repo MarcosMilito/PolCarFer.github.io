@@ -10,39 +10,109 @@
     <header>
         <div class="container">
             <a href="index.html" class="logo">POLCARFER SRL</a>
+
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
                     <li><a href="pedidos.html">Pedidos</a></li>
                     <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html">Lista de Precios</a></li>
                     <li><a href="contacto.html" class="active">Contacto</a></li>
                 </ul>
             </nav>
-            <button class="hamburger-menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+
+            <button class="hamburger-menu" aria-label="Abrir menú">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
             <nav class="mobile-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
                     <li><a href="pedidos.html">Pedidos</a></li>
                     <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html">Lista de Precios</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <main class="container page-content">
-        <h1>Ponte en Contacto con Nosotros</h1>
-        <p>Estamos aquí para ayudarte. Contáctanos a través de cualquiera de estos medios.</p>
-        <div class="contact-info">
-            <div class="contact-item"><h3>Teléfonos</h3><p>Socio 1: +54 9 11 5821-2733</p><p>Socio 2: +54 9 11 2370-0742</p></div>
-            <div class="contact-item"><h3>Correo Electrónico</h3><p>polcarfer@outlook.com</p></div>
-            <div class="contact-item"><h3>Localidad</h3><p>Lomas de Zamora</p></div>
-            <div class="contact-item"><h3>Redes Sociales</h3><p><a href="https://instagram.com/polcarfersrl" target="_blank">Instagram: @polcarfersrl</a></p></div>
-        </div>
+        <section class="contact-hero">
+            <div class="contact-hero-text">
+                <span class="section-kicker">Contacto</span>
+                <h1>Ponte en contacto con nosotros</h1>
+                <p>
+                    Estamos para ayudarte. Podés comunicarte con nosotros por teléfono,
+                    correo o redes sociales. Respondemos consultas comerciales,
+                    disponibilidad de productos y pedidos.
+                </p>
+            </div>
+
+            <div class="contact-hero-box">
+                <h3>Atención comercial</h3>
+                <p>Consultanos por stock, listas de precios y pedidos mayoristas.</p>
+                <a href="pedidos.html" class="btn btn-primary">Ir a pedidos</a>
+            </div>
+        </section>
+
+        <section class="contact-info contact-info-pro">
+            <article class="contact-item contact-card">
+                <div class="contact-card-top">
+                    <span class="contact-icon">📞</span>
+                    <h3>Teléfonos</h3>
+                </div>
+                <div class="contact-card-body">
+                    <p><strong>Socio 1:</strong> +54 9 11 5821-2733</p>
+                    <p><strong>Socio 2:</strong> +54 9 11 2370-0742</p>
+                </div>
+            </article>
+
+            <article class="contact-item contact-card">
+                <div class="contact-card-top">
+                    <span class="contact-icon">✉️</span>
+                    <h3>Correo electrónico</h3>
+                </div>
+                <div class="contact-card-body">
+                    <p><a href="mailto:polcarfer@outlook.com">polcarfer@outlook.com</a></p>
+                    <span class="contact-note">Ideal para consultas comerciales y listas.</span>
+                </div>
+            </article>
+
+            <article class="contact-item contact-card">
+                <div class="contact-card-top">
+                    <span class="contact-icon">📍</span>
+                    <h3>Localidad</h3>
+                </div>
+                <div class="contact-card-body">
+                    <p>Lomas de Zamora</p>
+                    <span class="contact-note">Atendemos consultas y coordinación de pedidos.</span>
+                </div>
+            </article>
+
+            <article class="contact-item contact-card">
+                <div class="contact-card-top">
+                    <span class="contact-icon">📲</span>
+                    <h3>Redes sociales</h3>
+                </div>
+                <div class="contact-card-body">
+                    <p><a href="https://instagram.com/polcarfersrl" target="_blank">@polcarfersrl</a></p>
+                    <span class="contact-note">Seguinos para novedades y publicaciones.</span>
+                </div>
+            </article>
+        </section>
     </main>
-    <footer><div class="container"><p>&copy; 2026 POLCARFER SRL</p></div></footer>
-    <script src="JS/productos.js"></script>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 POLCARFER SRL - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <script src="JS/script.js"></script>
 </body>
 </html>

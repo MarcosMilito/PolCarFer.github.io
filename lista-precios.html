@@ -3,81 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración de Catálogo - POLCARFER SRL</title>
+    <title>Lista de Precios (Socios) - POLCARFER SRL</title>
     <link rel="stylesheet" href="CSS/styles.css">
-    <!-- La librería para leer Excel ya está aquí, perfecto. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body id="page-lista-precios">
     <header>
         <div class="container">
             <a href="index.html" class="logo">POLCARFER SRL</a>
+
             <nav class="desktop-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
                     <li><a href="pedidos.html">Pedidos</a></li>
                     <li><a href="lista-precios.html" class="active">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html">Lista de Precios</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
-            <button class="hamburger-menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+
+            <button class="hamburger-menu" aria-label="Abrir menú">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
             <nav class="mobile-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="quienes-somos.html">¿Quiénes Somos?</a></li>
                     <li><a href="pedidos.html">Pedidos</a></li>
                     <li><a href="lista-precios.html">Lista de Precios (Socios)</a></li>
+                    <li><a href="catalogo-precios.html">Lista de Precios</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
     <main class="container page-content">
         <div id="login-section" class="admin-section">
-            <h2>Acceso para Socios</h2>
-            <p>Esta sección es para actualizar el catálogo. Ingresa el código de acceso.</p>
+            <h2>Acceso para socios</h2>
+            <p>Ingresá el código para cargar o actualizar el catálogo desde el Excel.</p>
+
             <form id="login-form">
                 <div class="form-group">
-                    <label for="codigo-acceso">Código de Socio</label>
+                    <label for="codigo-acceso">Código de socio</label>
                     <input type="password" id="codigo-acceso" required>
                 </div>
-                <button type="submit" class="btn">Validar</button>
+
+                <button type="submit" class="btn">Ingresar</button>
             </form>
         </div>
+
         <div id="admin-panel" class="admin-section" style="display: none;">
-            <h1>Actualizar Catálogo de Productos</h1>
-            <!-- CAMBIO EN EL TEXTO EXPLICATIVO -->
-            <p>Sube el archivo Excel con los productos. El catálogo para los clientes se actualizará <strong>automáticamente</strong>.</p>
-            
-            <input type="file" id="excel-file" accept=".xlsx, .xls">
-            <!-- CAMBIO EN EL BOTÓN -->
-            <button id="upload-btn" class="btn">Actualizar Catálogo Online</button>
-            <button id="clear-storage-btn" class="btn btn-secondary">Limpiar Catálogo Actual</button>
+            <h1>Actualizar catálogo</h1>
+            <p>Subí el archivo Excel y el sistema tomará únicamente la hoja <strong>“LISTA DE PRECIOS”</strong>.</p>
 
-            <hr style="margin: 30px 0; border-color: var(--color-borde);">
+            <div class="admin-actions">
+                <input type="file" id="excel-file" accept=".xlsx, .xls">
+                <button id="upload-btn" class="btn">Cargar catálogo desde Excel</button>
+                <button id="clear-storage-btn" class="btn btn-secondary">Borrar catálogo actual</button>
+            </div>
 
-            <h2>Vista Previa del Catálogo Actual</h2>
-            <div style="max-height: 400px; overflow-y: auto; border: 1px solid var(--color-borde); border-radius: 4px;">
-                 <table id="admin-product-table">
+            <hr class="separator">
+
+            <h2>Vista previa del catálogo actual</h2>
+            <div class="table-wrapper">
+                <table id="admin-product-table">
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Imagen</th>
+                            <th>Producto</th>
+                            <th>Presentación</th>
+                            <th>Precio E</th>
+                            <th>Precio F</th>
+                            <th>Precio aplicado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- La vista previa de productos se cargará aquí -->
+                        <!-- Se completa con JavaScript -->
                     </tbody>
                 </table>
             </div>
         </div>
     </main>
-    <footer><div class="container"><p>&copy; 2026 POLCARFER SRL</p></div></footer>
-    <!-- Ya no necesitas productos.js, pero lo dejamos para que no rompa el código viejo hasta que lo elimines -->
-    <!-- <script src="JS/productos.js"></script> -->
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 POLCARFER SRL - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
     <script src="JS/script.js"></script>
 </body>
 </html>

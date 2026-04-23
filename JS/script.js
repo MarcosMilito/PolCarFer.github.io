@@ -718,11 +718,6 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         }
 
         function downloadPriceListExcel() {
-            if (typeof XLSX === 'undefined') {
-                alert('No se cargó la librería XLSX.');
-                return;
-            }
-
             const password = prompt('Ingresá la contraseña para descargar la lista de precios:');
 
             if (password === null) return;
@@ -732,49 +727,12 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
                 return;
             }
 
-            function formatExcelMoney(value) {
-                return Number(value || 0).toLocaleString('es-AR', {
-                    style: 'currency',
-                    currency: 'ARS',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-            }
-
-            const dataToExport = productos.map(producto => ({
-                'Código': producto.codigo,
-                'Producto': producto.nombre,
-                'Presentación': producto.presentacion || '',
-                'Precio de lista': formatExcelMoney(producto.precioLista || 0),
-                'Descuento': producto.tieneDescuento ? `${Math.round(producto.descuento * 100)}%` : 'Sin descuento',
-                'Precio S/IVA': formatExcelMoney(
-                    producto.tieneDescuento
-                        ? (producto.precioSinIvaDescuento || producto.precioSinIva || 0)
-                        : (producto.precioSinIva || 0)
-                ),
-                'Precio C/IVA': formatExcelMoney(
-                    producto.tieneDescuento
-                        ? (producto.precioConIvaDescuento || producto.precioConIva || 0)
-                        : (producto.precioConIva || 0)
-                )
-            }));
-
-            const worksheet = XLSX.utils.json_to_sheet(dataToExport);
-
-            worksheet['!cols'] = [
-                { wch: 16 },
-                { wch: 55 },
-                { wch: 28 },
-                { wch: 20 },
-                { wch: 16 },
-                { wch: 20 },
-                { wch: 20 }
-            ];
-
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Precios');
-
-            XLSX.writeFile(workbook, 'PolCarFer - Lista de Precios.xlsx');
+            const link = document.createElement('a');
+            link.href = 'data/PolCarFer - Lista de Precios.xlsx';
+            link.download = 'PolCarFer - Lista de Precios.xlsx';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function renderTable(list) {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Precios - POLCARFER SRL</title>
     <link rel="stylesheet" href="CSS/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body id="page-catalogo-precios">
     <header>
@@ -61,6 +62,10 @@
                 <option value="price-asc">Precio S/IVA (menor a mayor)</option>
                 <option value="price-desc">Precio S/IVA (mayor a menor)</option>
             </select>
+
+            <button id="download-price-list-btn" class="btn btn-primary" type="button">
+                Descargar Lista de Precios
+            </button>
 
             <div class="catalog-summary">
                 <span id="price-list-total">0 productos</span>

@@ -697,6 +697,7 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         const sortSelect = document.getElementById('price-list-sort');
         const totalLabel = document.getElementById('price-list-total');
         const tableBody = document.querySelector('#price-list-table tbody');
+        const downloadPriceListBtn = document.getElementById('download-price-list-btn');
 
         let productos = (await getProducts()).map(producto => ({
             ...producto,
@@ -714,6 +715,52 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
                 option.textContent = rubro;
                 rubroFilter.appendChild(option);
             });
+        }
+
+        function downloadPriceListExcel() {
+            const password = prompt('Ingresá la contraseña para descargar la lista de precios:');
+
+            if (password === null) return;
+
+            if (password !== 'cliente@123') {
+                alert('Contraseña incorrecta.');
+                return;
+            }
+
+            const dataToExport = productos.map(producto => ({
+                'Código': producto.codigo,
+                'Producto': producto.nombre,
+                'Presentación': producto.presentacion || '',
+                'Precio de lista': Number(producto.precioLista || 0),
+                'Descuento': producto.tieneDescuento ? `${Math.round(producto.descuento * 100)}%` : 'Sin descuento',
+                'Precio S/IVA': Number(
+                    producto.tieneDescuento
+                        ? (producto.precioSinIvaDescuento || producto.precioSinIva || 0)
+                        : (producto.precioSinIva || 0)
+                ),
+                'Precio C/IVA': Number(
+                    producto.tieneDescuento
+                        ? (producto.precioConIvaDescuento || producto.precioConIva || 0)
+                        : (producto.precioConIva || 0)
+                )
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+
+            worksheet['!cols'] = [
+                { wch: 16 },
+                { wch: 55 },
+                { wch: 28 },
+                { wch: 18 },
+                { wch: 16 },
+                { wch: 18 },
+                { wch: 18 }
+            ];
+
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Lista de Precios');
+
+            XLSX.writeFile(workbook, 'PolCarFer - Lista de Precios.xlsx');
         }
 
         function renderTable(list) {
@@ -791,6 +838,7 @@ Una vez realizado el pago, si lo desea puede enviarnos el comprobante. Muchas gr
         searchInput.addEventListener('input', applyFiltersAndSort);
         rubroFilter.addEventListener('change', applyFiltersAndSort);
         sortSelect.addEventListener('change', applyFiltersAndSort);
+        downloadPriceListBtn.addEventListener('click', downloadPriceListExcel);
     }
 
     function initListaPreciosSociosPage() {
